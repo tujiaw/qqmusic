@@ -24,15 +24,12 @@ Dialog::Dialog(QWidget *parent)
     connect(ui->pbPlay, &QPushButton::clicked, [this]() {
         QMediaPlayer::State currentState = m_player->state();
         if (m_isPlayListChanged) {
-            qDebug() << "aaaaaaaaa";
             m_player->setPlayList(m_currentPlayList.second);
         }
         if (m_player->index() != m_currentIndex) {
-            qDebug() << "bbbbbbbbb";
             m_player->setIndex(m_currentIndex);
         }
 
-        qDebug() << "222:" << m_player->state();
         if (currentState != QMediaPlayer::PlayingState) {
             m_player->play();
         } else {
@@ -56,6 +53,10 @@ Dialog::Dialog(QWidget *parent)
             emit ui->pbPlay->clicked();
         }
     });
+
+    connect(ui->pageWidget, &PageNumberWidget::sigPageChanged, [this](int pageNumber) {
+        requestSongMenu();
+    });
 }
 
 Dialog::~Dialog()
@@ -66,8 +67,10 @@ Dialog::~Dialog()
 void Dialog::requestSongMenu()
 {
     int currentId = ui->itemList->currentItem()->data(s_role_itemId).toInt();
-    qDebug() << currentId;
     m_musicRequest->setItemId(currentId);
+    int currentPage = ui->pageWidget->currentPage();
+    m_musicRequest->setPage(currentPage);
+
     m_netManager->request(m_musicRequest->getUrl(), [this](const QByteArray &data) {
         MusicResponse response(data);
         if (response.resCode() == 0) {
@@ -87,8 +90,10 @@ void Dialog::requestSongMenu()
                 m_currentPlayList.second.append(iter->url);
             }
 
-            ui->leCurrentPage->setText(QString::number(pageBean.currentPage));
-            ui->leTotalPage->setText(QString::number(pageBean.totalPage));
+            //ui->leCurrentPage->setText(QString::number(pageBean.currentPage));
+            //ui->leTotalPage->setText(QString::number(pageBean.totalPage));
+            qDebug() << "total page:" << pageBean.totalPage;
+            ui->pageWidget->setCount(pageBean.totalPage);
         } else {
             qDebug() << response.resError();
         }

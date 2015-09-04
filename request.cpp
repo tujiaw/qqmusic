@@ -14,7 +14,7 @@ QString Request::getTimestamp()
     return dateTime.toString("yyyyMMddHHmmss");
 }
 
-QString Request::getMd5(const QList<QPair<QString, QString>> &argv, const QString &secret)
+QString Request::getMd5(const QList<QPair<QString, QString> > &argv, const QString &secret)
 {
    QList<QPair<QString, QString>> list = argv;
    qSort(list.begin(), list.end(), [](const QPair<QString, QString> &left, const QPair<QString, QString> &right) {

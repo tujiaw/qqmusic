@@ -8,6 +8,7 @@ QT       += core gui
 QT       += network
 QT       += multimedia
 
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +23,8 @@ SOURCES += main.cpp\
     response.cpp \
     itemlist.cpp \
     player.cpp \
-    netmanager.cpp
+    netmanager.cpp \
+    pagenumberwidget.cpp
 
 HEADERS  += dialog.h \
     json.h \
@@ -30,7 +32,8 @@ HEADERS  += dialog.h \
     response.h \
     itemlist.h \
     player.h \
-    netmanager.h
+    netmanager.h \
+    pagenumberwidget.h
 
 FORMS    += dialog.ui
 
