@@ -35,6 +35,7 @@ private:
     bool m_isPlayListChanged;
     QPair<QString, QStringList> m_currentPlayList;
     int m_currentIndex;
+    int m_currentRow;
 };
 
 #endif // DIALOG_H

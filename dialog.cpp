@@ -14,6 +14,7 @@ Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Dialog)
     , m_isPlayListChanged(false)
+    , m_currentRow(0)
 {
     ui->setupUi(this);
     m_netManager = new NetManager(this);
@@ -39,7 +40,12 @@ Dialog::Dialog(QWidget *parent)
         ui->pbPlay->setText(QMediaPlayer::PlayingState == m_player->state() ? tr("pause") : tr("play"));
     });
 
-    connect(ui->itemList, &QListWidget::doubleClicked, [this](const QModelIndex &) { requestSongMenu(); });
+    connect(ui->itemList, &QListWidget::doubleClicked, [this](const QModelIndex &index) {
+        if (m_currentRow != index.row()) {
+            m_currentRow = index.row();
+            requestSongMenu();
+        }
+    });
 
     connect(ui->lwSongList, &QListWidget::doubleClicked, [this](const QModelIndex &index) {
         m_currentIndex = index.row();
@@ -89,10 +95,6 @@ void Dialog::requestSongMenu()
                 ui->lwSongList->addItem(iter->songname + " - " + iter->singername + " [" + iter->albumname + "]");
                 m_currentPlayList.second.append(iter->url);
             }
-
-            //ui->leCurrentPage->setText(QString::number(pageBean.currentPage));
-            //ui->leTotalPage->setText(QString::number(pageBean.totalPage));
-            qDebug() << "total page:" << pageBean.totalPage;
             ui->pageWidget->setCount(pageBean.totalPage);
         } else {
             qDebug() << response.resError();

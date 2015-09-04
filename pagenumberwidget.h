@@ -13,6 +13,9 @@ public:
 
     void setCount(int count);
 
+    void setCurrentPage(int page);
+    int currentPage() const;
+
 signals:
     void sigPageChanged(int pageNumber);
 

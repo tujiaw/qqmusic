@@ -4,6 +4,7 @@
 PageNumberWidget::PageNumberWidget(QWidget *parent)
     : QWidget(parent)
     , m_currentPage(1)
+    , m_count(0)
 {
     this->setMouseTracking(true);
 }
@@ -15,8 +16,10 @@ PageNumberWidget::~PageNumberWidget()
 
 void PageNumberWidget::setCount(int count)
 {
-    m_count = count;
-    update();
+    if (m_count != count) {
+        m_count = count;
+        update();
+    }
 }
 
 void PageNumberWidget::setCurrentPage(int page)
@@ -47,6 +50,7 @@ void PageNumberWidget::mouseReleaseEvent(QMouseEvent *e)
         if (m_currentPage != page) {
             m_currentPage = page;
             emit sigPageChanged(m_currentPage);
+            update();
         }
     }
     QWidget::mouseReleaseEvent(e);
@@ -55,7 +59,6 @@ void PageNumberWidget::mouseReleaseEvent(QMouseEvent *e)
 void PageNumberWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.setBrush(QBrush(QColor(135, 206, 235)));
     painter.setPen(Qt::NoPen);
 
     int radius = 30;
@@ -72,13 +75,18 @@ void PageNumberWidget::paintEvent(QPaintEvent *)
         rect.setHeight(radius);
         m_rects.append(rect);
 
+        if (m_currentPage == i + 1) {
+            painter.setBrush(QBrush(QColor(255, 255, 255)));
+        } else {
+            painter.setBrush(QBrush(QColor(135, 206, 235)));
+        }
         painter.drawRoundRect(xPos, yPos, radius, radius, 100, 100);
         xPos += (radius + space);
     }
 
     painter.setPen(QColor(135, 135, 135));
     QFontInfo fm = painter.fontInfo();
-    int offset = (radius - fm.pixelSize()) / 2 + 2;
+    int offset = (radius - fm.pixelSize()) / 2 + 3;
     for (int i=0; i<m_count; i++) {
         painter.drawText(m_rects[i].x() + offset, 20, QString::number(i+1));
     }
