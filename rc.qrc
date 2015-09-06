@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file alias="itemlist">rc/itemlist.txt</file>
+        <file alias="style">rc/style.qss</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="next">rc/images/next.png</file>
+        <file alias="ou_mei">rc/images/ou_mei.jpg</file>
+        <file alias="pause">rc/images/pause.png</file>
+        <file alias="play">rc/images/play.png</file>
+        <file alias="prev">rc/images/prev.png</file>
+        <file alias="stop">rc/images/stop.png</file>
+        <file alias="close">rc/images/close.png</file>
     </qresource>
 </RCC>

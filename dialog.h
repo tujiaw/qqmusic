@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include "drop_widget.h"
 
 namespace Ui {
 class Dialog;
@@ -12,7 +13,7 @@ class ItemList;
 class QListWidgetItem;
 class Player;
 class NetManager;
-class Dialog : public QDialog
+class Dialog : public DropWidget
 {
     Q_OBJECT
 
@@ -24,6 +25,9 @@ public:
 
 protected:
     void showEvent(QShowEvent *);
+
+private:
+    void initUI();
 
 private:
     Ui::Dialog *ui;

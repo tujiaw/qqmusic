@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     itemlist.cpp \
     player.cpp \
     netmanager.cpp \
-    pagenumberwidget.cpp
+    pagenumberwidget.cpp \
+    drop_widget.cpp \
+    pic_button.cpp
 
 HEADERS  += dialog.h \
     json.h \
@@ -33,7 +35,9 @@ HEADERS  += dialog.h \
     itemlist.h \
     player.h \
     netmanager.h \
-    pagenumberwidget.h
+    pagenumberwidget.h \
+    drop_widget.h \
+    pic_button.h
 
 FORMS    += dialog.ui
 

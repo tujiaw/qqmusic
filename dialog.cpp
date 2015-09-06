@@ -11,7 +11,7 @@
 static int s_role_itemId = Qt::UserRole + 1;
 
 Dialog::Dialog(QWidget *parent)
-    : QDialog(parent)
+    : DropWidget(parent)
     , ui(new Ui::Dialog)
     , m_isPlayListChanged(false)
     , m_currentRow(0)
@@ -21,6 +21,10 @@ Dialog::Dialog(QWidget *parent)
     m_musicRequest = new MusicRequest(8009, "1aab66c68a95442abb06d999093fcd12", this);
     m_itemList = new ItemList(this);
     m_player = new Player(this);
+
+    connect(ui->pbClose, &QPushButton::clicked, [this]() {
+        this->close();
+    });
 
     connect(ui->pbPlay, &QPushButton::clicked, [this]() {
         QMediaPlayer::State currentState = m_player->state();
@@ -63,6 +67,8 @@ Dialog::Dialog(QWidget *parent)
     connect(ui->pageWidget, &PageNumberWidget::sigPageChanged, [this](int pageNumber) {
         requestSongMenu();
     });
+
+    initUI();
 }
 
 Dialog::~Dialog()
@@ -117,4 +123,19 @@ void Dialog::showEvent(QShowEvent *)
         once = false;
         requestSongMenu();
     }
+}
+
+void Dialog::initUI()
+{
+    this->setBackground(QImage(":/images/ou_mei"));
+
+    QPixmap closePixmap = QPixmap(":/images/close");
+    QPixmap playPixmap = QPixmap(":/images/play").scaled(50, 50);
+    QPixmap prevPixmap = QPixmap(":/images/prev").scaled(40, 40);
+    QPixmap nextPixmap = QPixmap(":/images/next").scaled(40, 40);
+
+    ui->pbClose->setImages(closePixmap, closePixmap, closePixmap);
+    ui->pbPlay->setImages(playPixmap, playPixmap, playPixmap);
+    ui->pbPrev->setImages(prevPixmap, prevPixmap, prevPixmap);
+    ui->pbNext->setImages(nextPixmap, nextPixmap, nextPixmap);
 }

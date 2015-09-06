@@ -60,11 +60,13 @@ void PageNumberWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setPen(Qt::NoPen);
+    painter.setRenderHint(QPainter::Antialiasing);
 
-    int radius = 30;
+    int radius = this->width();
     int space = 10;
-    int xPos = (this->width() - m_count * radius - (m_count - 1) * space) / 2;
-    int yPos = 0;
+    int xPos = 0;
+    int yPos = this->height() - m_count * radius - (m_count - 1) * space;
+    int yTextPos = yPos;
 
     m_rects.clear();
     for (int i=0; i<m_count; i++) {
@@ -81,14 +83,16 @@ void PageNumberWidget::paintEvent(QPaintEvent *)
             painter.setBrush(QBrush(QColor(135, 206, 235)));
         }
         painter.drawRoundRect(xPos, yPos, radius, radius, 100, 100);
-        xPos += (radius + space);
+        yPos += (radius + space);
     }
 
-    painter.setPen(QColor(135, 135, 135));
+    QPen pen(QColor(135, 135, 135));
+    pen.setWidth(3);
+    painter.setPen(pen);
     QFontInfo fm = painter.fontInfo();
-    int offset = (radius - fm.pixelSize()) / 2 + 3;
+    int offset = (radius - fm.pixelSize()) / 2 + 12;
     for (int i=0; i<m_count; i++) {
-        painter.drawText(m_rects[i].x() + offset, 20, QString::number(i+1));
+        painter.drawText(m_rects[i].x() + 6, m_rects[i].y() + offset, QString::number(i+1));
     }
 }
 
