@@ -127,3 +127,7 @@ QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
     background: none;
 }
+
+QWidget#titleWidget {
+    background: #87CEEB;
+}

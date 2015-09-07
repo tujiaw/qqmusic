@@ -2,7 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include "drop_widget.h"
+#include "./widget/drop_widget.h"
 
 namespace Ui {
 class Dialog;

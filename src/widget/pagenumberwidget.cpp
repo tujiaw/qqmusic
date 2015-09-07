@@ -66,7 +66,6 @@ void PageNumberWidget::paintEvent(QPaintEvent *)
     int space = 10;
     int xPos = 0;
     int yPos = this->height() - m_count * radius - (m_count - 1) * space;
-    int yTextPos = yPos;
 
     m_rects.clear();
     for (int i=0; i<m_count; i++) {

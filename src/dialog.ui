@@ -14,6 +14,9 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
    <property name="topMargin">
     <number>0</number>
    </property>
@@ -22,6 +25,9 @@
    </property>
    <property name="bottomMargin">
     <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>6</number>
    </property>
    <item row="1" column="1">
     <widget class="QWidget" name="songMenuWidget" native="true">
@@ -168,7 +174,7 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="titleWidget" native="true">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -227,13 +233,13 @@
   <customwidget>
    <class>PageNumberWidget</class>
    <extends>QWidget</extends>
-   <header>pagenumberwidget.h</header>
+   <header>./widget/pagenumberwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PicButton</class>
    <extends>QPushButton</extends>
-   <header>pic_button.h</header>
+   <header>./widget/pic_button.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
